@@ -21,6 +21,8 @@
 #include "mbg.h"
 #include "arm.h"
 #include "intake.h"
+#include"brain.h"
+
 
 extern competition Competition;
 extern chassis Drive;

@@ -9,16 +9,16 @@ void chassis::setStart(double x,double y,double ang){
   chassis::ang = ang;
 }
 void chassis::updatePos() { // sets class constants to real world values and will get value after motion done so almost like pre values
-  chassis::x = (chassis::getX() / 860);
-  chassis::y = (chassis::getY() / 860);
+  chassis::x += (chassis::getX() / 860);
+  chassis::y += (chassis::getY() / 860);
   chassis::ang = chassis::getAng(false);
 }
 float chassis::getX() { // gets Raw X value of robot "int encoder ticks"
-  return ((cos(chassis::getAng(true)) * ((Right + Left) / 2)) + chassis::x);
+  return ((cos(chassis::getAng(true)) * ((Right + Left) / 2)));
 }
 
 float chassis::getY() { // gets Raw Y value of robot "in encoder ticks"
-  return ((sin(chassis::getAng(true)) * ((Right + Left) / 2)) + chassis::y);
+  return ((sin(chassis::getAng(true)) * ((Right + Left) / 2)));
 }
 float chassis::getAng( bool radian) { // Translates Curheading from degrees to radians
   if (radian) {
@@ -126,4 +126,18 @@ void chassis::setRgt(int pwr){
 void chassis::stopDrive(){
   leftDrive.stop(coast);
   rightDrive.stop(coast);
+}
+
+int chassis::driving(){
+  while(1){
+   if(!chassis::Off){
+    
+   }
+   else if(chassis::Off){
+    chassis::updatePos();
+    chassis::stopDrive();
+   }
+  }
+  wait(15,msec);
+  return(0);
 }

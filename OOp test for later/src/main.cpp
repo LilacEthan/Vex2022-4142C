@@ -3,6 +3,7 @@
 using namespace vex;
 competition Competition;
 chassis Drive;
+brainScreen screen;
 
 //init Tasks-----------
 vex::task Odo;
@@ -23,7 +24,8 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   Inertial.calibrate();
-  autoSelector();
+  screen.background();
+  
 }
 
 /*---------------------------------------------------------------------------*/

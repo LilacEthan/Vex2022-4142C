@@ -45,10 +45,6 @@ class chassis {
 
   void setPos(double x,double y, double ang);
 
-  void toX(int trgt);
-
-  void toY(int trgt);
-
-  void toAng(int trgt);
+  float toPos(double x, double y);
   
 };
