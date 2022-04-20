@@ -16,7 +16,6 @@ class chassis {
  public:
   bool Off; //current staus of the chassis
 
-  int driving(); //Chasssis moving task
 
   float align();
   void stopDrive();
@@ -26,17 +25,18 @@ class chassis {
   void Drive(int target,bool pid); //function to go straight forward based on encoder distance (choose PID)
 
   //odometry like functions "odometry based on the center of the robot"
+  double tX();
+  double tY();
+  double tAng();
   
+  float sang;
   //current X,Y,and Angle Values
   float x;
   float y;
   float ang;
   //target X,Y, and Ang values 
-  float targetX;
-  float targetY;
-  float targetAng;
-
-  float PID(float target, bool turning, bool axis); //PID controller based on Odometry (choose Which axis X,Y, or turning the robot)
+  void resetT();
+  double PID(float target, bool turning, bool axis); //PID controller based on Odometry (choose Which axis X,Y, or turning the robot)
   float getX();
   float getY();
   float getAng(bool radian);
@@ -45,6 +45,9 @@ class chassis {
 
   void setPos(double x,double y, double ang);
 
-  float toPos(double x, double y);
+  void moveMent();
+  
+  float getTang();
+
   
 };

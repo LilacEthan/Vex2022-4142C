@@ -2,11 +2,13 @@
 #include "vex.h"
 
 using namespace vex;
+
+
 //---------------------------------Position Tracking Drive Class functions----------------------------------------------//
 void chassis::setStart(double x,double y,double ang){
   chassis::x =x;
   chassis::y =y;
-  chassis::ang = ang;
+  chassis::sang = ang;
 }
 void chassis::updatePos() { // sets class constants to real world values and will get value after motion done so almost like pre values
   chassis::x += (chassis::getX() / 860);
@@ -32,6 +34,9 @@ float chassis::getAng( bool radian) { // Translates Curheading from degrees to r
         Degree); // gets Angle of robot in degrees limited to a range of (0-360)
   } else
     return (0);
+}
+float chassis::getTang(){
+  return((atan(chassis::tY()/chassis::tX()) * 180/M_PI ) + chassis::sang);
 }
 
 float chassis::PID(float target, bool turning, bool axis) { //PID calculator for if Turning and what axis to move "moves like a box"
@@ -128,16 +133,6 @@ void chassis::stopDrive(){
   rightDrive.stop(coast);
 }
 
-int chassis::driving(){
-  while(1){
-   if(!chassis::Off){
-    
-   }
-   else if(chassis::Off){
-    chassis::updatePos();
-    chassis::stopDrive();
-   }
-  }
-  wait(15,msec);
-  return(0);
+void chassis::moveMent(){
+  
 }

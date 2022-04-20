@@ -6,8 +6,10 @@ using namespace vex;
 using signature = vision::signature;
 using code = vision::code;
 
-// A global instance of brain used for printing to the V5 Brain screen
-brain  Brain;
+//--Important-devices-needing-constructing-early-----
+brain  Brain; //Vex V5 Brain
+controller Controller = controller(primary);//Vex V5 Primary controller
+triport Expander = triport(PORT5); //Vex V5 Triport expander
 
 // VEXcode device constructors
 //----------Drive------------
@@ -15,24 +17,26 @@ motor rgtFrnt = motor(PORT8, ratio18_1, false);
 motor rgtMid = motor(PORT9, ratio18_1, false);
 motor rgtBack = motor(PORT10,ratio18_1,false);
 motor lftFrnt = motor(PORT18, ratio18_1, true);
-motor lftMid = motor(PORT19, ratio18_1, true);
-motor lftBack = motor(PORT14, ratio18_1, true);
+motor lftMid = motor(PORT13, ratio18_1, true);
+motor lftBack = motor(PORT12, ratio18_1, true);
 motor_group leftDrive = {lftFrnt, lftBack,lftMid};
 motor_group rightDrive = {rgtFrnt, rgtBack,rgtMid};
-//------------arm--------------
-triport Expander21 = triport(PORT21);
-controller Controller1 = controller(primary);
-motor conveyor = motor(PORT1, ratio6_1, false);
-motor lift = motor(PORT7, ratio36_1, false);
+encoder Right = encoder(Brain.ThreeWirePort.C);
+encoder Left = encoder(Expander.A);
 inertial Inertial = inertial(PORT20);
-encoder Right = encoder(Expander21.A);
-encoder Left = encoder(Expander21.C);
-potV2 armPot = potV2(Expander21.H);
-digital_out mbgIntakeR = digital_out(Brain.ThreeWirePort.F);
-digital_out mbgIntakeL = digital_out(Brain.ThreeWirePort.G);
-digital_out claw = digital_out(Brain.ThreeWirePort.H);
-digital_out lok = digital_out(Brain.ThreeWirePort.E);
-vex::distance disSen = vex::distance(PORT5);
+//------------arm--------------
+potV2 armPot = potV2(Brain.ThreeWirePort.A);
+motor lift = motor(PORT4, ratio36_1, true);
+//----------conveyor------------
+motor conveyor = motor(PORT19, ratio6_1, false);
+//------------MBG-subsystems-----
+digital_out bckMbg1 = digital_out(Expander.H);
+digital_out bckMbg2 = digital_out(Expander.G);
+vex::distance disSen = vex::distance(PORT21);
+digital_out frntMbg = digital_out(Expander.F);
+bumper frntBumb = bumper(Expander.E);
+
+
 // VEXcode generated functions
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;

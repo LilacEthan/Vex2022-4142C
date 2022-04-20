@@ -6,7 +6,7 @@ chassis Drive;
 brainScreen screen;
 
 //init Tasks-----------
-vex::task Odo;
+task robo;
 
 //----------------------
 // defining classes and initializing them
@@ -24,6 +24,7 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   Inertial.calibrate();
+  task robo = task(robotControl);
   screen.background();
   
 }
@@ -42,7 +43,8 @@ void Autonomous(void){
   // Auto();
   
   Inertial.setHeading(0,degrees);
-  Odo.suspend();
+  robo.suspend();
+  
 
 }
 // Main will set up the competition functions and callbacks.
@@ -61,7 +63,4 @@ int main() {
   }
 }
 
-/*------------------------------------------------------------------------*/
-/*                   Robot Controlling Tasks                              */
-/*------------------------------------------------------------------------*/
 

@@ -26,6 +26,7 @@
 
 extern competition Competition;
 extern chassis Drive;
+extern brainScreen screen;
 
 #define waitUntil(condition)                                                   \
   do {                                                                         \

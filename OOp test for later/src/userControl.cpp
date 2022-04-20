@@ -1,11 +1,11 @@
 #include "vex.h"
 
 using namespace vex;
-extern vex::task Odo;
+extern task robo;
 
 void driverControlled(void) {
   // Stop Tasks from running during the driver controlled period
-  Odo.stop();
+  robo.stop();
   //Driver Controlling variables--
   int powr[23];
   int powr1[23];
@@ -25,8 +25,8 @@ void driverControlled(void) {
   while (1) { // Controller Controlls while loop
     // Drive control table
     Brain.Screen.printAt(200,200, "CurHeading %f ", Drive.getX() );
-    yAxis = Controller1.Axis3.value();
-    xAxis = Controller1.Axis1.value();
+    yAxis = Controller.Axis3.value();
+    xAxis = Controller.Axis1.value();
     powr[0] = -100;
     powr[1] = -90;
     powr[2] = -80;
@@ -87,7 +87,7 @@ void driverControlled(void) {
     Drive.setLft(leftSide);
 
     // Intake Controller
-    if (Controller1.ButtonL1.pressing() == 1) {
+    if (Controller.ButtonL1.pressing() == 1) {
       if (!conv) {
         conveyor.spin(fwd, 100, pct);
         conv = true;
@@ -98,7 +98,7 @@ void driverControlled(void) {
         conv = false;
         wait(200,msec);
       }
-    } else if (Controller1.ButtonL2.pressing() == 1) {
+    } else if (Controller.ButtonL2.pressing() == 1) {
       if (!revConv) {
         conveyor.spin(reverse, 90, pct);
         revConv = true;
@@ -111,7 +111,7 @@ void driverControlled(void) {
       }
     }
     // Mbg Intakes Controller
-    if(Controller1.ButtonX.pressing()){
+    if(Controller.ButtonX.pressing()){
       if(!mbgPos){
         mbg(true);
         mbgPos = true;
@@ -123,7 +123,7 @@ void driverControlled(void) {
         wait(200,msec);
       }
     }
-    else if(Controller1.ButtonA.pressing()){
+    else if(Controller.ButtonA.pressing()){
       if(clawPos){
         clamp(false);
         clawPos = false;
@@ -136,17 +136,17 @@ void driverControlled(void) {
       }
     }
     //Arm Controller
-    if (Controller1.ButtonR1.pressing()){
+    if (Controller.ButtonR1.pressing()){
       lift.spin(fwd,90,pct);
     }
-    else if(Controller1.ButtonR2.pressing()){
+    else if(Controller.ButtonR2.pressing()){
       lift.spin(fwd,-90,pct);
     }
     else{
       lift.stop(hold);
     }
     //break button to stop the robot shifting on the platform
-    if(Controller1.ButtonB.pressing()){
+    if(Controller.ButtonB.pressing()){
      if(!driveStop){
        leftDrive.stop(hold);
        rightDrive.stop(hold);
