@@ -1,11 +1,11 @@
 #include "vex.h"
 
 using namespace vex;
-extern task robo;
+
 
 void driverControlled(void) {
   // Stop Tasks from running during the driver controlled period
-  robo.stop();
+  robo.suspend();
   //Driver Controlling variables--
   int powr[23];
   int powr1[23];

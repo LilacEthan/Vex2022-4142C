@@ -7,6 +7,7 @@ brainScreen screen;
 
 //init Tasks-----------
 task robo;
+task debug;
 
 //----------------------
 // defining classes and initializing them
@@ -24,8 +25,8 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   Inertial.calibrate();
-  task robo = task(robotControl);
-  screen.background();
+  robo = task(robotControl);
+
   
 }
 
@@ -43,7 +44,7 @@ void Autonomous(void){
   // Auto();
   
   Inertial.setHeading(0,degrees);
-  robo.suspend();
+
   
 
 }

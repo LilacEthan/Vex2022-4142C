@@ -39,7 +39,7 @@ float chassis::getTang(){
   return((atan(chassis::tY()/chassis::tX()) * 180/M_PI ) + chassis::sang);
 }
 
-float chassis::PID(float target, bool turning, bool axis) { //PID calculator for if Turning and what axis to move "moves like a box"
+double chassis::PID(float target, bool turning, bool axis) { //PID calculator for if Turning and what axis to move "moves like a box"
   double error;
   float pOut;
   float iOut;

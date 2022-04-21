@@ -34,6 +34,9 @@ void  vexcodeInit( void );
 
 //Robot Tasks 
 
+extern task robo;
+extern task debug;
+
 int robotControl();
 
 int brainControl();
