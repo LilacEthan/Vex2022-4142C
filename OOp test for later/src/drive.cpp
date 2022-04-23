@@ -35,8 +35,12 @@ float chassis::getAng( bool radian) { // Translates Curheading from degrees to r
   } else
     return (0);
 }
-float chassis::getTang(){
-  return((atan(chassis::tY()/chassis::tX()) * 180/M_PI ) + chassis::sang);
+float chassis::MgetTang(){
+  return((atan(chassis::tY/chassis::tX) * 180/M_PI ) + chassis::sang);
+}
+
+float chassis::MgetTdis(){
+  return(sqrt(pow((chassis::tX - chassis::x),2) + pow((chassis::tY - chassis::y),2)));
 }
 
 double chassis::PID(float target, bool turning, bool axis) { //PID calculator for if Turning and what axis to move "moves like a box"
@@ -134,5 +138,9 @@ void chassis::stopDrive(){
 }
 
 void chassis::moveMent(){
-  
+  if((chassis::MgetTang() - chassis::getAng(false))){
+    
+  }
+
+
 }

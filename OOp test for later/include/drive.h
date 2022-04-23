@@ -25,9 +25,9 @@ class chassis {
   void Drive(int target,bool pid); //function to go straight forward based on encoder distance (choose PID)
 
   //odometry like functions "odometry based on the center of the robot"
-  double tX();
-  double tY();
-  double tAng();
+  double tX;
+  double tY;
+  double tAng;
   
   float sang;
   //current X,Y,and Angle Values
@@ -47,7 +47,7 @@ class chassis {
 
   void moveMent();
   
-  float getTang();
+  float MgetTang();
 
-  
+  float MgetTdis();
 };

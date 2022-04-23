@@ -4,8 +4,8 @@
 using namespace vex;
 
 void brainScreen::background(){
-  Brain.Screen.drawImageFromBuffer(StayC , 10,10,sizeof(StayC));
-  if(motor(PORT13).installed()){
+  Brain.Screen.drawImageFromBuffer(StayC , 10,10, sizeof(StayC));
+  if(lftFrnt.installed() && lftMid.installed() && lftBack.installed() && rgtFrnt.installed() && rgtMid.installed() && rgtBack.installed()){
    Brain.Screen.printAt(10,120, "Its Going Down");
   }
   //use the buffer of png inages or

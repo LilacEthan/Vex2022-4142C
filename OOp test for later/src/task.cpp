@@ -5,7 +5,7 @@ using namespace vex;
 int robotControl(){
  while(1){
   if(!Drive.Off){
-  //move drive
+   Drive.moveMent();
   }
   
 
@@ -21,6 +21,7 @@ int robotControl(){
 
 int brainControl(){
   while(1){
+
     screen.background();
     if(Competition.isDriverControl()){
       break;
