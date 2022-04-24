@@ -16,9 +16,9 @@ triport Expander = triport(PORT5); //Vex V5 Triport expander
 motor rgtFrnt = motor(PORT8, ratio18_1, false);
 motor rgtMid = motor(PORT9, ratio18_1, false);
 motor rgtBack = motor(PORT10,ratio18_1,false);
-motor lftFrnt = motor(PORT7, ratio18_1, true);
-motor lftMid = motor(PORT18, ratio18_1, true);
-motor lftBack = motor(PORT12, ratio18_1, true);
+motor lftFrnt = motor(PORT6, ratio18_1, true);
+motor lftMid = motor(PORT12, ratio18_1, true);
+motor lftBack = motor(PORT7, ratio18_1, true);
 motor_group leftDrive = {lftFrnt, lftBack,lftMid};
 motor_group rightDrive = {rgtFrnt, rgtBack,rgtMid};
 encoder Right = encoder(Brain.ThreeWirePort.C);
@@ -34,7 +34,7 @@ digital_out bckMbg1 = digital_out(Expander.H);
 digital_out bckMbg2 = digital_out(Expander.G);
 vex::distance disSen = vex::distance(PORT21);
 digital_out frntMbg = digital_out(Expander.F);
-bumper frntBumb = bumper(Expander.E);
+bumper frntBump = bumper(Expander.E);
 
 
 // VEXcode generated functions

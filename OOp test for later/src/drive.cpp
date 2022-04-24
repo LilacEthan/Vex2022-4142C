@@ -8,7 +8,7 @@ using namespace vex;
 void chassis::setStart(double x,double y,double ang){
   chassis::x =x;
   chassis::y =y;
-  chassis::sang = ang;
+  chassis::sang = ang + 90;
 }
 void chassis::updatePos() { // sets class constants to real world values and will get value after motion done so almost like pre values
   chassis::x += (chassis::getX() / 860);
@@ -24,19 +24,18 @@ float chassis::getY() { // gets Raw Y value of robot "in encoder ticks"
 }
 float chassis::getAng( bool radian) { // Translates Curheading from degrees to radians
   if (radian) {
-    return ((Inertial.heading() * M_PI / 180) + (chassis::ang * (M_PI / 180))); // gets Angle of robot in radians
+    return ((Inertial.heading() * M_PI / 180) + (90 * (chassis::sang))); // gets Angle of robot in radians
   } else if (!radian) {
-    float Degree = Inertial.heading() + chassis::ang;
+    float Degree = Inertial.heading() + chassis::sang;
     if (Degree > 360) {
       Degree = Degree - 360;
     }
-    return (
-        Degree); // gets Angle of robot in degrees limited to a range of (0-360)
+    return (Degree); // gets Angle of robot in degrees limited to a range of (0-360)
   } else
     return (0);
 }
 float chassis::MgetTang(){
-  return((atan(chassis::tY/chassis::tX) * 180/M_PI ) + chassis::sang);
+  return(((atan(chassis::tY/chassis::tX)) * 180/M_PI ) + chassis::sang);
 }
 
 float chassis::MgetTdis(){
@@ -138,9 +137,17 @@ void chassis::stopDrive(){
 }
 
 void chassis::moveMent(){
-  if((chassis::MgetTang() - chassis::getAng(false))){
-    
+  if((fabs(chassis::MgetTang()) - chassis::getAng(false)) < 1){
+    if((chassis::MgetTang() - chassis::getAng(false)) > 0 ){
+      chassis::setRgt(chassis::PID(chassis::MgetTang(),true,false));
+      chassis::setLft(-chassis::PID(chassis::MgetTang(),true,false));
+    }
+    else if((chassis::MgetTang() - chassis::getAng(false)) < 0){
+      chassis::setRgt(-chassis::PID(chassis::MgetTang(),true,false));
+      chassis::setLft(chassis::PID(chassis::MgetTang(),true,false));
+    }
   }
+  else if(true){}
 
 
 }

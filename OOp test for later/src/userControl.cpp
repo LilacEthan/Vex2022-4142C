@@ -24,7 +24,7 @@ void driverControlled(void) {
   bool driveStop = false;
   while (1) { // Controller Controlls while loop
     // Drive control table
-    Brain.Screen.printAt(200,200, "CurHeading %f ", Drive.getX() );
+    Brain.Screen.printAt(200,200,"bump %d ", frntBump.pressing() );
     yAxis = Controller.Axis3.value();
     xAxis = Controller.Axis1.value();
     powr[0] = -100;
