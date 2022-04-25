@@ -8,4 +8,6 @@ class brainScreen {
   void selection();
 
   void reset();
+
+  void checking();
 };

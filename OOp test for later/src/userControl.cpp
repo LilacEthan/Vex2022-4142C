@@ -5,6 +5,7 @@ using namespace vex;
 
 void driverControlled(void) {
   // Stop Tasks from running during the driver controlled period
+  screen.background();
   robo.suspend();
   //Driver Controlling variables--
   int powr[23];
@@ -89,7 +90,7 @@ void driverControlled(void) {
     // Intake Controller
     if (Controller.ButtonL1.pressing() == 1) {
       if (!conv) {
-        conveyor.spin(fwd, 100, pct);
+        conveyor.spin(fwd, 90, pct);
         conv = true;
         wait(200, msec);
       }

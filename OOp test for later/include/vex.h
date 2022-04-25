@@ -26,8 +26,10 @@
 
 extern competition Competition;
 extern chassis Drive;
+extern arm Arm;
 extern brainScreen screen;
-
+extern intake Conv;
+extern MBG Mbg ;
 #define waitUntil(condition)                                                   \
   do {                                                                         \
     wait(5, msec);                                                             \

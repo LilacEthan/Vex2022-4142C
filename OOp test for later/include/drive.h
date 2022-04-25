@@ -14,7 +14,7 @@ class chassis {
   const double kP = 0.5;
 
  public:
-  bool Off; //current staus of the chassis
+  bool Off = true; //current staus of the chassis
 
 
   float align();
@@ -25,6 +25,9 @@ class chassis {
   void Drive(int target,bool pid); //function to go straight forward based on encoder distance (choose PID)
 
   //odometry like functions "odometry based on the center of the robot"
+  bool reverse();
+  bool revolution();
+  //target X,Y, and Ang values 
   double tX;
   double tY;
   double tAng;
@@ -34,12 +37,13 @@ class chassis {
   float x;
   float y;
   float ang;
-  //target X,Y, and Ang values 
+
   void resetT();
-  double PID(float target, bool turning, bool axis); //PID controller based on Odometry (choose Which axis X,Y, or turning the robot)
+  double PID(float target, bool turning); //PID controller based on Odometry (choose Which axis X,Y, or turning the robot)
   float getX();
   float getY();
   float getAng(bool radian);
+  
   void updatePos();
   void setStart(double x,double y, double ang);
 

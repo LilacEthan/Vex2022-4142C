@@ -4,15 +4,6 @@ extern chassis Drive;
 
 int SelectedAuto = 1;
 
-void waitTillOff(){ // Function that checks my tasks to see if their done and waits fro them to be done
-  while (1){
-    wait(200,msec);
-    if( ArmOff() && IntakeOff() ){
-      break;
-    }
-    wait(20,msec);
-  }
-}
 
 void autoSelector() {
  

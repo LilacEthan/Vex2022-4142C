@@ -4,7 +4,9 @@ using namespace vex;
 competition Competition;
 chassis Drive;
 brainScreen screen;
-
+arm Arm;
+intake Conv;
+MBG Mbg;
 //init Tasks-----------
 task robo;
 task debug;

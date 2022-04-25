@@ -34,15 +34,15 @@ float chassis::getAng( bool radian) { // Translates Curheading from degrees to r
   } else
     return (0);
 }
-float chassis::MgetTang(){
+float chassis::MgetTang(){ //returns the target angle based on current target angles in degrees (both positive and negetive)
   return(((atan(chassis::tY/chassis::tX)) * 180/M_PI ) + chassis::sang);
 }
 
-float chassis::MgetTdis(){
+float chassis::MgetTdis(){ //uses distance formula to find how far the robot neds to travel (always positive)
   return(sqrt(pow((chassis::tX - chassis::x),2) + pow((chassis::tY - chassis::y),2)));
 }
 
-double chassis::PID(float target, bool turning, bool axis) { //PID calculator for if Turning and what axis to move "moves like a box"
+double chassis::PID(float target, bool turning) { //PID calculator for if Turning and what axis to move "moves like a box"
   double error;
   float pOut;
   float iOut;
@@ -51,8 +51,8 @@ double chassis::PID(float target, bool turning, bool axis) { //PID calculator fo
   double preEr = 0;
   float output = 0;
 
-  if (!turning && axis) {
-   error = target - chassis::getX();
+  if (!turning ) {
+   error = target - ((Right + Left)/2) ;
 
    pOut = chassis::dP * error;
    
@@ -74,29 +74,6 @@ double chassis::PID(float target, bool turning, bool axis) { //PID calculator fo
     updatePos();
    }
   } 
-  else if(!turning && !axis){
-    error = target - chassis::getY();
-
-   pOut = chassis::dP * error;
-   
-   iEr += error;
-   if(iEr >= 4300 ){
-     iEr = 4300;
-   }
-   else if(iEr <= -4300){
-     iEr = -4300;
-   }   
-   iOut = chassis::dI * iEr ;
-   
-   dOut = chassis::dD * preEr;
-
-   preEr = error;
-
-   output = pOut + iOut + dOut ;
-   if(output <= 2){
-     updatePos();
-   }
-  }
   else if (turning) {
    error = target - chassis::getAng(false);
 
@@ -124,6 +101,30 @@ double chassis::PID(float target, bool turning, bool axis) { //PID calculator fo
   //finally returns PID out put for spesific Axis
   return(output);
 }
+
+bool chassis::reverse(){
+  if(fabs(chassis::MgetTang()) >= 90 && (chassis::tX <= chassis::x && chassis::tY >= chassis::y)){
+   return(false);
+  }
+  else if(fabs(chassis::MgetTang()) < 90 && (chassis::tX >= chassis::x && chassis::tY >= chassis::y)){
+    return(false);
+  }
+  else{
+    return(true);
+  }
+}
+
+bool chassis::revolution(){
+  if(((chassis::MgetTang() - chassis::getAng(false)) > 1) || (chassis::tAng - chassis::getAng(false)) < 1){
+    return(true);
+  }
+  else if(((chassis::MgetTang() - chassis::getAng(false)) < 1 ) || (chassis::tAng - chassis::getAng(false)) < 1){
+    return(false);
+  }
+  return(0);
+}
+
+
 //------------------------------------Drive Class Movement Functions-------------------------------------// 
 void chassis::setLft(int pwr){
   leftDrive.spin(fwd,pwr,pct);
@@ -137,17 +138,37 @@ void chassis::stopDrive(){
 }
 
 void chassis::moveMent(){
-  if((fabs(chassis::MgetTang()) - chassis::getAng(false)) < 1){
-    if((chassis::MgetTang() - chassis::getAng(false)) > 0 ){
-      chassis::setRgt(chassis::PID(chassis::MgetTang(),true,false));
-      chassis::setLft(-chassis::PID(chassis::MgetTang(),true,false));
+  if((fabs(chassis::MgetTang()) - chassis::getAng(false)) > 1){
+    if(chassis::revolution()){
+      chassis::setRgt(chassis::PID(chassis::MgetTang(),true));
+      chassis::setLft(-chassis::PID(chassis::MgetTang(),true));
     }
-    else if((chassis::MgetTang() - chassis::getAng(false)) < 0){
-      chassis::setRgt(-chassis::PID(chassis::MgetTang(),true,false));
-      chassis::setLft(chassis::PID(chassis::MgetTang(),true,false));
+    else {
+      chassis::setRgt(-chassis::PID(chassis::MgetTang(),true));
+      chassis::setLft(chassis::PID(chassis::MgetTang(),true));
     }
   }
-  else if(true){}
-
-
+  else if((fabs(chassis::tX - chassis::getX()) >= 0.2) && (fabs(chassis::tY - chassis::getY()) > 0.2)){
+    if(chassis::reverse()){
+     chassis::setRgt(-chassis::PID(chassis::MgetTdis(),false));
+     chassis::setLft(-chassis::PID(chassis::MgetTdis(),false));
+    }
+    else{
+      chassis::setRgt(chassis::PID(chassis::MgetTdis(),false));
+      chassis::setLft(chassis::PID(chassis::MgetTdis(),false));
+    }
+  }
+  else if((chassis::tAng - chassis::getAng(false)) > 1){
+    if(chassis::revolution()){
+      chassis::setRgt(chassis::PID(chassis::tAng,true));
+      chassis::setLft(-chassis::PID(chassis::tAng,true));
+    }
+    else{
+      chassis::setRgt(chassis::PID(chassis::tAng,true));
+      chassis::setLft(chassis::PID(chassis::tAng,true));
+    }
+  }
+  else{
+    chassis::Off = true ;
+  }
 }

@@ -20,6 +20,7 @@ extern digital_out bckMbg1;
 extern digital_out bckMbg2;
 extern digital_out frntMbg;
 extern bumper frntBump;
+extern distance backSen;
 
 extern motor_group leftDrive;
 extern motor_group rightDrive;
@@ -40,3 +41,5 @@ extern task debug;
 int robotControl();
 
 int brainControl();
+
+void waitTillOff();

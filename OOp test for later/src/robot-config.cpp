@@ -32,7 +32,7 @@ motor conveyor = motor(PORT19, ratio6_1, false);
 //------------MBG-subsystems-----
 digital_out bckMbg1 = digital_out(Expander.H);
 digital_out bckMbg2 = digital_out(Expander.G);
-vex::distance disSen = vex::distance(PORT21);
+distance backSen = distance(PORT21);
 digital_out frntMbg = digital_out(Expander.F);
 bumper frntBump = bumper(Expander.E);
 
