@@ -21,11 +21,11 @@ motor lftMid = motor(PORT12, ratio18_1, true);
 motor lftBack = motor(PORT7, ratio18_1, true);
 motor_group leftDrive = {lftFrnt, lftBack,lftMid};
 motor_group rightDrive = {rgtFrnt, rgtBack,rgtMid};
-encoder Right = encoder(Brain.ThreeWirePort.C);
+encoder Right = encoder(Brain.ThreeWirePort.A);
 encoder Left = encoder(Expander.A);
 inertial Inertial = inertial(PORT20);
 //------------arm--------------
-potV2 armPot = potV2(Brain.ThreeWirePort.A);
+potV2 armPot = potV2(Brain.ThreeWirePort.C);
 motor lift = motor(PORT4, ratio36_1, true);
 //----------conveyor------------
 motor conveyor = motor(PORT19, ratio6_1, false);

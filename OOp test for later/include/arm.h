@@ -2,7 +2,7 @@
 
 class arm {
  public:
-  bool Off;
+  bool Off  = true;
   double tAng;
   double getAng();
 

@@ -28,33 +28,15 @@ void pre_auton(void) {
   vexcodeInit();
   Inertial.calibrate();
   robo = task(robotControl);
+  debug = task(brainControl);
 
   
-}
-
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              Autonomous Task                              */
-/*                                                                           */
-/*  This task is used to control your robot during the autonomous phase of   */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
-
-void Autonomous(void){
-  // Auto();
-  
-  Inertial.setHeading(0,degrees);
-
-  
-
 }
 // Main will set up the competition functions and callbacks.
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
-  Competition.autonomous(Autonomous);
+  Competition.autonomous(Auto);
   Competition.drivercontrol(driverControlled);
 
   // Run the pre-autonomous function.

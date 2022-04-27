@@ -1,10 +1,6 @@
 #include "vex.h"
 
-extern chassis Drive;
-
-int SelectedAuto = 1;
-
-
+/*
 void autoSelector() {
  
  int width = 80; //Basic Rectangle Dimensions
@@ -61,8 +57,16 @@ void autoSelector() {
   }
  }
 }
-
+*/
 void Auto(void){ //Auto function definition
  Inertial.setHeading(0,degrees);
- if(SelectedAuto == 1){ }
+ if(screen.selectedAuto == screen.awpLine){ 
+   Drive.setStart(1.5,-2.7 , 0);
+   Drive.setPos(1.5,0,90);
+   waitTillOff();
+
+ }
+ else if(screen.selectedAuto == screen.nonAwp){
+   
+ }
 }

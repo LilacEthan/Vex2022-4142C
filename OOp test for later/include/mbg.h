@@ -9,15 +9,12 @@ class MBG{
 
   void setBack(bool pos);
 
+  void waitFrnt();
+  void waitBack();
+
   bool inFrnt();
 
   bool inBack();
 
   void autoClamp(bool side);
 };
-
-void mbg(bool take);
-
-void clamp (bool pos);
-
-

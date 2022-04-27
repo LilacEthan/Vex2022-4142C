@@ -3,9 +3,9 @@ using namespace vex;
 
 class chassis {
  private:
-  const double dP = 7;
-  const double dI = 1;
-  const double dD = 1;
+  const double dP = 0.09;
+  const double dI = 0;
+  const double dD = 0;
 
   const double tP = 0.5;
   const double tI = 0.5;
@@ -16,7 +16,7 @@ class chassis {
  public:
   bool Off = true; //current staus of the chassis
 
-
+  float getAvg();
   float align();
   void stopDrive();
   void setLft(int pwr);
@@ -31,8 +31,12 @@ class chassis {
   double tX;
   double tY;
   double tAng;
-  
-  float sang;
+  double sY;
+  double sX;
+  double sang = 90;
+  double prevX;
+  double prevY;
+  double prevAng;
   //current X,Y,and Angle Values
   float x;
   float y;

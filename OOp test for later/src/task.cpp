@@ -4,6 +4,7 @@ using namespace vex;
 
 int robotControl(){
  while(1){
+ Drive.updatePos();
   if(!Drive.Off){ //Drive Task control
    Drive.moveMent();
   }
@@ -19,16 +20,10 @@ int robotControl(){
     }
   }
   if(Mbg.fStatus){ // MBG Task for sensor detection
-    if(Mbg.inFrnt()){
-      Mbg.setFrnt(true);
-      Mbg.fStatus = false;
-    }
+   Mbg.waitFrnt();
   }
   if(Mbg.bStatus){
-    if(Mbg.inBack()){
-      Mbg.setBack(true);
-      Mbg.bStatus = false;
-    }
+   Mbg.waitBack();
   }
 
   //Task Break out for when the Robot goes into Driver control just incase
@@ -43,6 +38,11 @@ int robotControl(){
 int brainControl(){
  screen.background(); //Will print non moving background and non Checkers like (StayC Girlsssssssssss :)
   while(1){
+    screen.checking();
+    screen.selection();
+    Brain.Screen.printAt(309,200,"selected Auto: %d" , screen.selectedAuto);
+    Brain.Screen.printAt(300,160,"Debugger1: %f", Right.position(degrees));
+    Brain.Screen.printAt(300,180, "Debugger2: %f ", Left.position(degrees));
     if(Competition.isDriverControl()){
       break;
     }

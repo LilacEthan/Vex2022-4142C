@@ -5,8 +5,9 @@ using namespace vex;
 
 void driverControlled(void) {
   // Stop Tasks from running during the driver controlled period
-  screen.background();
   robo.suspend();
+  debug.suspend();
+  screen.background();
   //Driver Controlling variables--
   int powr[23];
   int powr1[23];
@@ -23,9 +24,10 @@ void driverControlled(void) {
   bool mbgPos = false;
   bool clawPos = false;
   bool driveStop = false;
+
   while (1) { // Controller Controlls while loop
     // Drive control table
-    Brain.Screen.printAt(200,200,"bump %d ", frntBump.pressing() );
+    screen.checking();
     yAxis = Controller.Axis3.value();
     xAxis = Controller.Axis1.value();
     powr[0] = -100;
@@ -90,7 +92,7 @@ void driverControlled(void) {
     // Intake Controller
     if (Controller.ButtonL1.pressing() == 1) {
       if (!conv) {
-        conveyor.spin(fwd, 90, pct);
+        conveyor.spin(fwd, 85, pct);
         conv = true;
         wait(200, msec);
       }
@@ -114,24 +116,24 @@ void driverControlled(void) {
     // Mbg Intakes Controller
     if(Controller.ButtonX.pressing()){
       if(!mbgPos){
-        mbg(true);
+        Mbg.setBack(true);
         mbgPos = true;
         wait(200,msec);        
       }
       else if(mbgPos){
-        mbg(false);
+        Mbg.setBack(false);
         mbgPos = false;
         wait(200,msec);
       }
     }
     else if(Controller.ButtonA.pressing()){
       if(clawPos){
-        clamp(false);
+        Mbg.setFrnt(false);
         clawPos = false;
         wait(200,msec);
       }
       else if(!clawPos){
-        clamp(true);
+        Mbg.setFrnt(true);
         clawPos = true;
         wait(200,msec);
       }

@@ -1,6 +1,6 @@
 class intake{
  public:
-  bool Off;
+  bool Off = true;
   bool Direc;
   void Intake();
 

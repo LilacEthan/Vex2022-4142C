@@ -29,20 +29,16 @@ void MBG::autoClamp(bool side){
   }
 }
 
-
-
-
-
-
-
-
-
-
-void mbg(bool take){
-  bckMbg1.set(take);
-  bckMbg2.set(take);
+void MBG::waitFrnt(){   
+ if(Mbg.inFrnt()){
+    Mbg.setFrnt(true);
+    Mbg.fStatus = false;
+  }
 }
 
-void clamp (bool pos){
-  frntMbg.set(pos);
+void MBG::waitBack(){
+  if(Mbg.inBack()){
+    Mbg.setBack(true);
+    Mbg.bStatus = false;
+   }
 }
